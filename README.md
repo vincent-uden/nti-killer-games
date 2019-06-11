@@ -15,8 +15,10 @@
 
 
 ### Tables
+```
                         ######   users   ######
 id, first-name, last-name, email, class, password, code, target-id, kills, score, alive
+```
 
 ## Implementation
 Inget offer kan ha mördaren som offer, det skapar en cirkel. Detta får endast
