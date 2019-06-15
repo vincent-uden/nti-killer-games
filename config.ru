@@ -4,6 +4,9 @@ require 'bundler'
 Bundler.require
 
 require_relative 'app'
+require_relative 'utils'
+require_relative 'database/database'
+require_relative 'database/models/code_words'
 require 'webrick/https'
 
 
@@ -13,7 +16,7 @@ Rack::Server.start(
   :app              => App,
   :SSLEnable        => true,
   :SSLVerifyClient  => OpenSSL::SSL::VERIFY_NONE,
-  :SSLPrivateKey    => OpenSSL::PKey::RSA.new( File.read "pkey.pem" ),
-  :SSLCertificate   => OpenSSL::X509::Certificate.new( File.read "cert.crt" ),
+  :SSLPrivateKey    => OpenSSL::PKey::RSA.new( File.read __dir__ + "/ssl-certs/pkey.pem" ),
+  :SSLCertificate   => OpenSSL::X509::Certificate.new( File.read __dir__ + "/ssl-certs/cert.crt" ),
   :SSLCertName      => [["CN", WEBrick::Utils::getservername]]
 )      

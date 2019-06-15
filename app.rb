@@ -1,5 +1,10 @@
 class App < Sinatra::Base
   get '/' do
-    "Hello World"
+    slim :index
+  end
+
+  get '/words' do
+    ap (CodeWord.select_all)
+    "kek"
   end
 end
