@@ -6,8 +6,13 @@ class Column
 end
 
 class Table
-  def initialize
+  def initialize(*args)
     @column_values = []
+    if !args.empty?
+      args[0].each do |col_name, val|
+        self.send("set_#{col_name}", val)
+      end
+    end
   end
 
   def self.table_name(name)
@@ -43,6 +48,10 @@ class Table
     insert_query = insert_query[0..-3]
     insert_query += ");"
     Database.prepare "insert_#{get_table_name}", insert_query
+
+    # SELECT *
+    select_query = "SELECT * FROM #{get_table_name};"
+    Database.prepare "select_#{get_table_name}", select_query
   end
 
   def self.insert(values)
@@ -50,7 +59,7 @@ class Table
   end
 
   def self.select_all
-    Database.exec("SELECT * FROM #{get_table_name};")
+    Database.exec_prepared "select_#{get_table_name}"
   end
 
   def method_missing(method_name, *args, &blk)

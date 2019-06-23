@@ -7,9 +7,6 @@ class CodeWord < Table
   prep_generic_stmts
 
   def initialize(db_hash)
-    super()
-
-    set_id db_hash["id"]
-    set_word db_hash["word"]
+    super(db_hash)
   end
 end
