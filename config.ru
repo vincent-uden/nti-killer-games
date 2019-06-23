@@ -9,6 +9,7 @@ require_relative 'database/database'
 require_relative 'database/models/code_words'
 require 'webrick/https'
 
+use Rack::SSL
 
 Rack::Server.start(
   :Port             => 9292,
