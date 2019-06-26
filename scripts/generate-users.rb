@@ -23,6 +23,7 @@ def create_users()
     new_user.set_last_name name.split(" ")[1]
     new_user.set_email Faker::Internet.unique.safe_email
     new_user.set_class (["1", "2", "3"].sample + ["A", "B", "C", "D", "E"].sample)
+    new_user.set_password BCrypt::Password.create "testpass123"
     new_user.set_code codes[n]
     new_user.set_alive true
     new_user.save
@@ -30,3 +31,5 @@ def create_users()
   end
 
 end
+
+create_users
