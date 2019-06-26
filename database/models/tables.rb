@@ -6,6 +6,7 @@ class Column
 end
 
 class Table
+  attr_reader :column_values
   def initialize(*args)
     @column_values = []
     if !args.empty?
@@ -38,12 +39,22 @@ class Table
     # Insert
     insert_query = "INSERT INTO #{get_table_name} ("
     get_columns.each do |col|
-      insert_query += col.name.to_s + ", "
+      # Assumes all columns called id will be serial
+      # autoincrementing keys
+      if col.name != :id
+        insert_query += col.name.to_s + ", "
+      end
     end
     insert_query = insert_query[0..-3]
     insert_query += ") VALUES ("
-    get_columns.each_with_index do |col, index|
-      insert_query += "$#{index+1}, "
+    index = 1
+    get_columns.each do |col|
+      # Assumes all columns called id will be serial
+      # autoincrementing keys
+      if col.name != :id
+        insert_query += "$#{index}, "
+        index += 1
+      end
     end
     insert_query = insert_query[0..-3]
     insert_query += ");"
@@ -60,6 +71,22 @@ class Table
 
   def self.select_all
     Database.exec_prepared "select_#{get_table_name}"
+  end
+
+  # Method call will look like:
+  # Table.select where: "column = value"
+  def self.select(*args)
+    if args.empty?
+      select_all
+    else
+      options = args[0]
+      query = "SELECT * FROM #{get_table_name}"
+      if options[:where]
+        query += " WHERE #{options[:where]}"
+      end
+      query += ";"
+      Database.exec_params query, options[:values]
+    end
   end
 
   def method_missing(method_name, *args, &blk)
