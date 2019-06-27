@@ -1,0 +1,9 @@
+h1 Login!
+
+- if @current_user.null?
+  form action="/account/login" method="post" id="loginForm"
+    input type="text" name="email" placeholder="Email"
+    input type="password" name="password" placeholder="Password"
+    button type="submit" Log in
+- else
+  h2 You are already logged in

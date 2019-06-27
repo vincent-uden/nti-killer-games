@@ -48,6 +48,10 @@ class User < Table
     end
   end
 
+  def null?
+    get_id == 0
+  end
+
   def self.null_user
     User.new({
       "id" => 0,
@@ -62,5 +66,30 @@ class User < Table
       "score" => 0,
       "alive" => false
     })
+  end
+
+  def self.get(identifier)
+    if identifier[:email]
+      result = select where: "email = $1", values: [identifier[:email]]
+    elsif identifier[:id]
+      result = select where: "id = $1", values: [identifier[:id]]
+    end
+
+    if result.empty?
+      user = null_user
+    else
+      user = User.new result[0]
+    end
+
+    user
+  end
+
+  def self.login(browser_email, browser_pass, session)
+    user = get email: browser_email
+    login_success = BCrypt::Password.new(user.get_password) == browser_pass && !(user.null?)
+    if login_success
+      dp "Login Succesfull!"
+      session[:user_id] = user.get_id
+    end
   end
 end

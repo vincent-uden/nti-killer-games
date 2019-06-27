@@ -6,7 +6,9 @@ Bundler.require
 require_relative 'app'
 require_relative 'utils'
 require_relative 'database/database'
+require_relative 'database/models/tables'
 require_relative 'database/models/code_words'
+require_relative 'database/models/users'
 require 'webrick/https'
 
 use Rack::SSL
