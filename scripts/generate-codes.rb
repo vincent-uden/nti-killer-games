@@ -6,11 +6,10 @@ require_relative '../database/models/code_words'
 require_relative '../database/models/users'
 
 
-def get_code_words()
+def get_code_words(amount)
   words = CodeWord.select_all.map { |x| x['word'] }
-  ap words
   generated_codes = []
-  while generated_codes.length < 8000 do
+  while generated_codes.length < amount do
     index1 = rand(0..19)
     index2 = rand(20..39)
     index3 = rand(40..59)
@@ -20,8 +19,5 @@ def get_code_words()
     end
   end
 
-  ap generated_codes
-  p generated_codes.uniq.length == generated_codes.length
+  generated_codes
 end
-
-get_code_words

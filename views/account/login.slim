@@ -1,0 +1,15 @@
+- if !flash[:errors] then flash.now[:errors] = []
+
+h1 Logga in!
+
+- if @current_user.null?
+  form action="/account/login" method="post" id="loginForm"
+    input type="text" name="email" placeholder="Email"
+    input type="password" name="password" placeholder="Lösenord"
+    - if flash[:errors].include? :wrong_password
+      p Emailen och lösenordet stämde inte överens
+    button type="submit" Logga in
+- else
+  h2 Du är redan inloggad
+
+a href="/account/new" Skapa konto

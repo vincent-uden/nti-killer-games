@@ -9,4 +9,14 @@ class CodeWord < Table
   def initialize(db_hash)
     super(db_hash)
   end
+
+  def self.valid_code?(code)
+    code_parts = code.split("-")
+    words = select_all.map { |w| w.values[1] }
+    valid = true
+    code_parts.each do |p|
+      valid = valid && (words.include? p)
+    end
+    valid && code != ""
+  end
 end
