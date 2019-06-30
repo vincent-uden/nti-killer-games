@@ -1,8 +1,10 @@
 class App < Sinatra::Base
   enable :sessions
+  register Sinatra::Flash
   
   post '/account/login' do
-    User.login params['email'], params['password'], session
+    errors = User.login params['email'], params['password'], session
+    flash[:errors] = errors
     redirect back
   end
 
@@ -29,5 +31,19 @@ class App < Sinatra::Base
 
   get '/account/login' do
     slim :'account/login'
+  end
+
+  get '/account/new' do
+    slim :'account/new'
+  end
+
+  post '/account/new' do
+    errors = User.create_new_user params
+    if errors.empty?
+      redirect '/account/login'
+    else
+      flash[:errors] = errors
+      redirect back
+    end
   end
 end

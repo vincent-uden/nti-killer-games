@@ -1,10 +1,20 @@
-ENV['RACK_ENV'] = 'test'
 
 require 'bundler'
 Bundler.require
 
-require_relative '../../app'
 require 'capybara/rspec'
+
+ENV['RACK_ENV'] = 'test'
+
+require_relative './helper_class'
+Helper.populate_user_data
+
+require_relative '../../app'
+require_relative '../../utils'
+require_relative '../../database/database'
+require_relative '../../database/models/tables'
+require_relative '../../database/models/code_words'
+require_relative '../../database/models/users'
 
 Capybara.app = App
 Capybara.server = :webrick
@@ -15,4 +25,3 @@ if ENV['headless'] == 'true'
   Capybara.default_driver = :selenium_chrome_headless
 end
 
-# TODO Populate user data
