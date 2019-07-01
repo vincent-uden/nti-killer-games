@@ -1,0 +1,21 @@
+div#userHeader {
+    grid-template-columns: 2fr 2fr 1fr 3fr 3fr 1fr 2fr;
+    grid-template-rows: 1fr;
+    display: grid;
+}
+
+div#userHeader p {
+    grid-column: span 1;
+}
+
+div#userTable {
+    grid-template-columns: 2fr 2fr 1fr 3fr 3fr 1fr 2fr;
+    display: grid;
+    height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+div#userTable p {
+    grid-column: span 1;
+}

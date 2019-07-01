@@ -1,0 +1,31 @@
+- if !flash[:errors] then flash.now[:errors] = []
+
+link rel="stylesheet" href="/css/admin.css"
+
+- if @is_admin
+  h1 Administrering
+  h2 Spelare
+  div#userHeader
+    p.firstName Förnamn
+    p.lastName  Efternamn
+    p.class     Klass
+    p.email     Email
+    p.code      Code
+    p.score     Poäng
+    p.alive     Levande/Död
+  div#userTable
+    - for user in @users
+      p.firstName =user.get_first_name
+      p.lastName  =user.get_last_name
+      p.class     =user.get_class
+      p.email     =user.get_email
+      p.code      =user.get_code
+      p.score     =user.get_score
+      p.alive     =(user.get_alive ? "Levande" : "Död")
+- else
+  h1 Admin kod
+  form action="/admin/login" method="post" id="adminForm"
+    input type="password" name="adminCode"
+    - if flash[:errors].include? :wrong_code
+      p Fel kod
+    button type="submit" Logga in

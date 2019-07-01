@@ -84,6 +84,9 @@ class Table
       if options[:where]
         query += " WHERE #{options[:where]}"
       end
+      if options[:order_by]
+        query += " ORDER BY #{options[:order_by]}"
+      end
       query += ";"
       Database.exec_params query, options[:values]
     end

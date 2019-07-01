@@ -1,4 +1,9 @@
+
 class App < Sinatra::Base
+  # Password for admin page
+  # killerpass123
+  admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
+
   enable :sessions
   register Sinatra::Flash
   
@@ -37,6 +42,18 @@ class App < Sinatra::Base
     slim :'account/new'
   end
 
+  get '/admin/overview' do
+    if session[:admin]
+      @is_admin = true
+      @users = User.select(order_by: 'class, first_name').map { |x| User.new x  }
+    else
+      @is_admin = false
+    end
+
+
+    slim :'admin/overview'
+  end
+
   post '/account/new' do
     errors = User.create_new_user params
     if errors.empty?
@@ -45,5 +62,14 @@ class App < Sinatra::Base
       flash[:errors] = errors
       redirect back
     end
+  end
+
+  post '/admin/login' do
+    if BCrypt::Password.new(admin_pass) == params['adminCode']
+      session[:admin] = true
+    else
+      flash[:errors] = [:wrong_code]
+    end
+    redirect back
   end
 end
