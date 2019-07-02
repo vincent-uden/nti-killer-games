@@ -12,5 +12,9 @@ end
 task :test do
   sh 'dropdb testing_nti'
   sh 'createdb testing_nti'
-  sh 'bundle exec rspec --format documentation'
+  begin
+    sh 'bundle exec rspec --format documentation'
+  rescue RuntimeError => e
+    exit 1
+  end
 end

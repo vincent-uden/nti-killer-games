@@ -9,7 +9,6 @@ feature 'Entering the web page' do
       fill_in 'password', with: Helper.TEST_PASSWORD
     end
     click_button 'Logga in'
-    sleep 4
     expect(page).to have_content 'Game Overview'
   end
 
