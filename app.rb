@@ -6,11 +6,15 @@ class App < Sinatra::Base
 
   enable :sessions
   register Sinatra::Flash
-  
+
   post '/account/login' do
     errors = User.login params['email'], params['password'], session
     flash[:errors] = errors
-    redirect back
+    if errors.empty?
+      redirect '/'
+    else
+      redirect back
+    end
   end
 
   post '/account/logout' do
@@ -23,6 +27,9 @@ class App < Sinatra::Base
     else
       @current_user = User.null_user
     end
+    if !flash[:errors] 
+      flash.now[:errors] = []
+    end
   end
 
   not_found do
@@ -31,7 +38,11 @@ class App < Sinatra::Base
   end
 
   get '/' do
-    slim :index
+    if @current_user.null?
+      slim :index
+    else
+      redirect '/game/overview'
+    end
   end
 
   get '/account/login' do
@@ -52,6 +63,14 @@ class App < Sinatra::Base
 
 
     slim :'admin/overview'
+  end
+
+  get '/game/overview' do
+    if @current_user.null?
+      redirect '/account/login'
+    else
+      slim :'game/overview'
+    end
   end
 
   post '/account/new' do

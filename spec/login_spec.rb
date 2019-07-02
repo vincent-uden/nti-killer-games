@@ -9,7 +9,8 @@ feature 'Entering the web page' do
       fill_in 'password', with: Helper.TEST_PASSWORD
     end
     click_button 'Logga in'
-    expect(page).to have_content 'Du är redan inloggad'
+    sleep 4
+    expect(page).to have_content 'Game Overview'
   end
 
   scenario 'Failing to log in' do

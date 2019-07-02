@@ -67,6 +67,10 @@ class User < Table
   def null?
     get_id == 0
   end
+  
+  def get_target
+    self.class.get id: get_target_id
+  end
 
   def self.valid_classes
     @valid_classes
@@ -109,8 +113,12 @@ class User < Table
   def self.login(browser_email, browser_pass, session)
     errors = []
     user = get email: browser_email
-    if !(BCrypt::Password.new(user.get_password) == browser_pass && !(user.null?))
-      errors << :wrong_password
+    if user.null?
+      errors << :wrong_email
+    else
+      if !(BCrypt::Password.new(user.get_password) == browser_pass && !(user.null?))
+        errors << :wrong_password
+      end
     end
 
     if errors.empty?
@@ -172,4 +180,5 @@ class User < Table
 
     errors
   end
+
 end

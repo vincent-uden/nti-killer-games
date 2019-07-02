@@ -1,5 +1,3 @@
-- if !flash[:errors] then flash.now[:errors] = []
-
 link rel="stylesheet" href="/css/admin.css"
 
 - if @is_admin
@@ -13,6 +11,7 @@ link rel="stylesheet" href="/css/admin.css"
     p.code      Code
     p.score     Poäng
     p.alive     Levande/Död
+    p.target    Offer
   div#userTable
     - for user in @users
       p.firstName =user.get_first_name
@@ -22,6 +21,8 @@ link rel="stylesheet" href="/css/admin.css"
       p.code      =user.get_code
       p.score     =user.get_score
       p.alive     =(user.get_alive ? "Levande" : "Död")
+      - target = user.get_target
+      p.target    ="#{target.get_first_name} #{target.get_last_name}"
 - else
   h1 Admin kod
   form action="/admin/login" method="post" id="adminForm"
