@@ -1,4 +1,9 @@
 h1 Game Overview
 
-h2 Target
-p ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
+- if @current_user.get_alive
+  h2 Target
+  p ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
+  form action="/account/die" method="post" id="dieForm"
+    button type="submit" Jag har blivit mördad
+- else
+  p Du är död

@@ -57,6 +57,7 @@ class App < Sinatra::Base
     if session[:admin]
       @is_admin = true
       @users = User.select(order_by: 'class, first_name').map { |x| User.new x  }
+      @target_chain = User.get_target_chain
     else
       @is_admin = false
     end
@@ -81,6 +82,11 @@ class App < Sinatra::Base
       flash[:errors] = errors
       redirect back
     end
+  end
+
+  post '/account/die' do
+    @current_user.die
+    redirect back
   end
 
   post '/admin/login' do

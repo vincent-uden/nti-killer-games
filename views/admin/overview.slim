@@ -23,6 +23,9 @@ link rel="stylesheet" href="/css/admin.css"
       p.alive     =(user.get_alive ? "Levande" : "Död")
       - target = user.get_target
       p.target    ="#{target.get_first_name} #{target.get_last_name}"
+  div#chainTable
+    - for user in @target_chain
+      p =user.get_first_name + " " + user.get_last_name
 - else
   h1 Admin kod
   form action="/admin/login" method="post" id="adminForm"

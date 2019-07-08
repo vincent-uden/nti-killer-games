@@ -72,6 +72,19 @@ class User < Table
     self.class.get id: get_target_id
   end
 
+  def die
+    murderer = self.class.get target_id: get_id
+    current_score = murderer.get_score
+    current_kills = murderer.get_kills
+    murderer.set_score current_score + 100
+    murderer.set_kills current_kills + 1
+    murderer.set_target_id get_target_id
+    murderer.save
+
+    set_alive false
+    save
+  end
+
   def self.valid_classes
     @valid_classes
   end
@@ -99,6 +112,8 @@ class User < Table
       result = select where: "id = $1", values: [identifier[:id]]
     elsif identifier[:code]
       result = select where: "code = $1", values: [identifier[:code]]
+    elsif identifier[:target_id]
+      result = select where: "target_id = $1", values: [identifier[:target_id]]
     end
 
     if result.empty?
@@ -179,6 +194,21 @@ class User < Table
     end
 
     errors
+  end
+
+  def self.get_target_chain
+    users = select_all.map { |u| User.new u }
+    start_user = users.first
+    next_id = start_user.get_target_id
+    next_user = (users.select { |u| u.get_id == next_id }).first
+    chain = []
+    chain << next_user
+    while next_user != start_user
+      next_id = next_user.get_target_id
+      next_user = (users.select { |u| u.get_id == next_id }).first
+      chain << next_user
+    end
+    chain
   end
 
 end
