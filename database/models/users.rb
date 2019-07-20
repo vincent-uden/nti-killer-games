@@ -1,4 +1,5 @@
 require_relative 'tables'
+require_relative 'kills'
 
 class User < Table
   table_name 'users'
@@ -10,8 +11,6 @@ class User < Table
   column :password
   column :code
   column :target_id
-  column :kills
-  column :score
   column :alive
   prep_generic_stmts
 
@@ -74,15 +73,19 @@ class User < Table
 
   def die
     murderer = self.class.get target_id: get_id
-    current_score = murderer.get_score
-    current_kills = murderer.get_kills
-    murderer.set_score current_score + 100
-    murderer.set_kills current_kills + 1
+
     murderer.set_target_id get_target_id
     murderer.save
 
+    Kill.create_new_kill killer_id: murderer.get_id, victim_id: get_id
+
     set_alive false
     save
+  end
+
+  def get_score
+    kills = Kill.select where: "killer_id = $1", values: [get_id]
+    kills.length
   end
 
   def self.valid_classes
@@ -99,8 +102,6 @@ class User < Table
       "password" => "Null",
       "code" => "null-null-null",
       "target_id" => 0,
-      "kills" => 0,
-      "score" => 0,
       "alive" => false
     })
   end

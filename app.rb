@@ -1,4 +1,4 @@
-
+#TODO: USE KILLS TABLE
 class App < Sinatra::Base
   # Password for admin page
   # killerpass123
