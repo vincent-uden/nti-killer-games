@@ -1,10 +1,10 @@
-- if !flash[:errors] then flash.now[:errors] = []
-
 h1 Logga in!
 
 - if @current_user.null?
   form action="/account/login" method="post" id="loginForm"
     input type="text" name="email" placeholder="Email"
+    - if flash[:errors].include? :wrong_email
+      p Användaren finns inte
     input type="password" name="password" placeholder="Lösenord"
     - if flash[:errors].include? :wrong_password
       p Emailen och lösenordet stämde inte överens

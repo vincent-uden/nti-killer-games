@@ -1,3 +1,6 @@
+# To backup database, run this in shell
+# createdb -O *ownerName* -T *originalDb* *newDbName*
+
 class Database
   if ENV['RACK_ENV'] ==  'test'
     @@db_con ||= PG.connect dbname: 'testing_nti'

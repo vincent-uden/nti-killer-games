@@ -1,4 +1,5 @@
 require_relative 'tables'
+require_relative 'kills'
 
 class User < Table
   table_name 'users'
@@ -10,8 +11,6 @@ class User < Table
   column :password
   column :code
   column :target_id
-  column :kills
-  column :score
   column :alive
   prep_generic_stmts
 
@@ -67,6 +66,27 @@ class User < Table
   def null?
     get_id == 0
   end
+  
+  def get_target
+    self.class.get id: get_target_id
+  end
+
+  def die
+    murderer = self.class.get target_id: get_id
+
+    murderer.set_target_id get_target_id
+    murderer.save
+
+    Kill.create_new_kill killer_id: murderer.get_id, victim_id: get_id
+
+    set_alive false
+    save
+  end
+
+  def get_score
+    kills = Kill.select where: "killer_id = $1", values: [get_id]
+    kills.length
+  end
 
   def self.valid_classes
     @valid_classes
@@ -82,8 +102,6 @@ class User < Table
       "password" => "Null",
       "code" => "null-null-null",
       "target_id" => 0,
-      "kills" => 0,
-      "score" => 0,
       "alive" => false
     })
   end
@@ -95,6 +113,8 @@ class User < Table
       result = select where: "id = $1", values: [identifier[:id]]
     elsif identifier[:code]
       result = select where: "code = $1", values: [identifier[:code]]
+    elsif identifier[:target_id]
+      result = select where: "target_id = $1", values: [identifier[:target_id]]
     end
 
     if result.empty?
@@ -109,8 +129,12 @@ class User < Table
   def self.login(browser_email, browser_pass, session)
     errors = []
     user = get email: browser_email
-    if !(BCrypt::Password.new(user.get_password) == browser_pass && !(user.null?))
-      errors << :wrong_password
+    if user.null?
+      errors << :wrong_email
+    else
+      if !(BCrypt::Password.new(user.get_password) == browser_pass && !(user.null?))
+        errors << :wrong_password
+      end
     end
 
     if errors.empty?
@@ -172,4 +196,20 @@ class User < Table
 
     errors
   end
+
+  def self.get_target_chain
+    users = select_all.map { |u| User.new u }
+    start_user = users.first
+    next_id = start_user.get_target_id
+    next_user = (users.select { |u| u.get_id == next_id }).first
+    chain = []
+    chain << next_user
+    while next_user != start_user
+      next_id = next_user.get_target_id
+      next_user = (users.select { |u| u.get_id == next_id }).first
+      chain << next_user
+    end
+    chain
+  end
+
 end

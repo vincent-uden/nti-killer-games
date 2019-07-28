@@ -1,6 +1,6 @@
 class Helper
   
-  @TEST_EMAIL = 'le.connelly@example.org'
+  @TEST_EMAIL = 'alexander@example.org'
   @TEST_PASSWORD = 'testpass123'
 
   def self.TEST_EMAIL
