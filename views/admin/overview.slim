@@ -1,4 +1,4 @@
-link rel="stylesheet" href="/css/admin.css"
+link rel="stylesheet" type="text/css" href="/css/admin.css"
 
 - if @is_admin
   h1 Administrering
@@ -26,6 +26,7 @@ link rel="stylesheet" href="/css/admin.css"
   div#chainTable
     - for user in @target_chain
       p =user.get_first_name + " " + user.get_last_name
+  script src="/js/admin.js"
 - else
   h1 Admin kod
   form action="/admin/login" method="post" id="adminForm"

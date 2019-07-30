@@ -6,6 +6,7 @@ class App < Sinatra::Base
 
   enable :sessions
   register Sinatra::Flash
+  set :public_folder, '/home/vdesktop/github/nti-killer-games/public'
 
   post '/account/login' do
     errors = User.login params['email'], params['password'], session
@@ -32,10 +33,6 @@ class App < Sinatra::Base
     end
   end
 
-  not_found do
-    status 404
-    slim :'404', layout: false
-  end
 
   get '/' do
     if @current_user.null?
@@ -64,6 +61,26 @@ class App < Sinatra::Base
 
 
     slim :'admin/overview'
+  end
+
+  get '/admin/userData' do
+    # Assure that we aren't getting sql injected
+    col = Database.quote_ident params[:column]
+    order = params[:order]
+    if order == "desc"
+      order = "DESC"
+    else
+      order = "ASC"
+    end
+
+    result = Database.exec "SELECT * FROM users ORDER BY #{col} #{order};"
+    result.each do |row|
+      target = User.get id: row["target_id"]
+      user = User.new row
+      row["target_name"] = target.get_first_name + " " + target.get_last_name
+      row["score"] = user.get_score
+    end
+    result.to_json
   end
 
   get '/game/overview' do
@@ -96,5 +113,10 @@ class App < Sinatra::Base
       flash[:errors] = [:wrong_code]
     end
     redirect back
+  end
+
+  not_found do
+    status 404
+    slim :'404', layout: false
   end
 end
