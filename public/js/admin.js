@@ -1,6 +1,8 @@
-function getUserData() {
+let sortingStates = [];
+
+function getUserData(column, order) {
     let Http = new XMLHttpRequest();
-    const url = "/admin/userData?column=first_name&order=desc";
+    const url = "/admin/userData?column=" + column + "&" + "order=" + order;
 
     Http.open("GET", url);
     Http.send();
@@ -22,7 +24,7 @@ function updateUserTable(userData) {
     cNode = userTable.cloneNode(false);
 
     
-    for (let row of userData) {
+    for ( let row of userData ) {
       let tempP = document.createElement("p");
       tempP.classList.add("firstName");
       let tempNode = document.createTextNode(row.first_name);
@@ -75,4 +77,43 @@ function updateUserTable(userData) {
     userTable.parentNode.replaceChild(cNode, userTable);
 }
 
-getUserData();
+function setupOnClicks() {
+    let tableHeaders = document.getElementsByClassName("tableHead");
+
+    for ( let i = 0; i < tableHeaders.length; i++ ) {
+        let head = tableHeaders[i];
+        sortingStates.push(null);
+        head.addEventListener("click", function() {tableHeaderOnClick(i, head.classList[1])});
+    }
+}
+
+function tableHeaderOnClick(index, className) {
+    let classNames = new Map([
+        ["firstName", "first_name"],
+        ["lastName", "last_name"],
+        ["class", "class"],
+        ["email", "email"],
+        ["code", "code"],
+        ["score", "score"],
+        ["alive", "alive"],
+        ["target", "target"],
+    ]);
+
+    let orderStates = new Map([
+        [true, "asc"],
+        [false, "desc"],
+    ]);
+
+    for ( let i = 0; i < sortingStates.length; i++ ) {
+        if ( i == index ) {
+            sortingStates[i] = !sortingStates[i];
+        } else {
+            sortingStates[i] = null;
+        }
+    }
+    
+    getUserData(classNames.get(className), orderStates.get(sortingStates[index]))
+}
+
+setupOnClicks();
+getUserData("class", "asc");

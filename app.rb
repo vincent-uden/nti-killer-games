@@ -1,4 +1,3 @@
-#TODO: USE KILLS TABLE
 class App < Sinatra::Base
   # Password for admin page
   # killerpass123
@@ -65,7 +64,11 @@ class App < Sinatra::Base
 
   get '/admin/userData' do
     # Assure that we aren't getting sql injected
-    col = Database.quote_ident params[:column]
+    if params[:column] == "score" || params[:column] == "target"
+      col = "first_name"
+    else
+      col = Database.quote_ident params[:column]
+    end
     order = params[:order]
     if order == "desc"
       order = "DESC"
@@ -79,6 +82,17 @@ class App < Sinatra::Base
       user = User.new row
       row["target_name"] = target.get_first_name + " " + target.get_last_name
       row["score"] = user.get_score
+    end
+
+    # Some bonus sorting for score and target
+    if params[:column] == "score" && order == "ASC"
+      result = result.sort { |a, b| a["score"] <=> b["score"] }
+    elsif params[:column] == "score" && order == "DESC"
+      result = result.sort { |a, b| b["score"] <=> a["score"] }
+    elsif params[:column] == "target" && order == "ASC"
+      result = result.sort { |a, b| a["target_name"] <=> b["target_name"] }
+    elsif params[:column] == "target" && order == "DESC"
+      result = result.sort { |a, b| b["target_name"] <=> a["target_name"] }
     end
     result.to_json
   end
