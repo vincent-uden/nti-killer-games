@@ -15,6 +15,7 @@ use Rack::SSL
 
 Rack::Server.start(
   :Port             => 9292,
+  :Host             => '0.0.0.0',
   :Logger           => WEBrick::Log::new($stderr, WEBrick::Log::DEBUG),
   :app              => App,
   :SSLEnable        => true,

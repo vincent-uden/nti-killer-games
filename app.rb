@@ -5,6 +5,7 @@ class App < Sinatra::Base
   admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
 
   enable :sessions
+  set :bind, '0.0.0.0'
   register Sinatra::Flash
 
   post '/account/login' do
