@@ -28,4 +28,8 @@ class Database
   def self.escape(string)
     @@db_con.escape_string string
   end
+
+  def self.quote_ident(identifier)
+    @@db_con.quote_ident(identifier)
+  end
 end
