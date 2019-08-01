@@ -111,6 +111,16 @@ function tableHeaderOnClick(index, className) {
             sortingStates[i] = null;
         }
     }
+
+    let tableHeaders = document.getElementsByClassName("tableHead");
+
+    for ( let i = 0; i < tableHeaders.length; i++ ) {
+        if ( i == index ) {
+            tableHeaders[i].classList.add("headerBold");
+        } else {
+            tableHeaders[i].classList.remove("headerBold");
+        }
+    }
     
     getUserData(classNames.get(className), orderStates.get(sortingStates[index]))
 }

@@ -1,33 +1,34 @@
 link rel="stylesheet" type="text/css" href="/css/admin.css"
 
 - if @is_admin
-  h1 Administrering
-  h2 Spelare
-  div#userHeader
-    p class="tableHead firstName" Förnamn
-    p class="tableHead lastName"  Efternamn
-    p class="tableHead class"     Klass
-    p class="tableHead email"     Email
-    p class="tableHead code"      Code
-    p class="tableHead score"     Poäng
-    p class="tableHead alive"     Levande/Död
-    p class="tableHead target"    Offer
-  div#userTable
-    - for user in @users
-      p.firstName =user.get_first_name
-      p.lastName  =user.get_last_name
-      p.class     =user.get_class
-      p.email     =user.get_email
-      p.code      =user.get_code
-      p.score     =user.get_score
-      p.alive     =(user.get_alive ? "Levande" : "Död")
-      - target = user.get_target
-      p.target    ="#{target.get_first_name} #{target.get_last_name}"
-  h2 Mord-ordningen
-  div#chainTable
-    - for user in @target_chain
-      p =user.get_first_name + " " + user.get_last_name
-  script src="/js/admin.js"
+  main
+    h1 Administrering
+    h2 Spelare
+    div#userHeader
+      p class="tableHead firstName" Förnamn
+      p class="tableHead lastName"  Efternamn
+      p class="tableHead class"     Klass
+      p class="tableHead email"     Email
+      p class="tableHead code"      Code
+      p class="tableHead score"     Poäng
+      p class="tableHead alive"     Levande/Död
+      p class="tableHead target"    Offer
+    div#userTable
+      - for user in @users
+        p.firstName =user.get_first_name
+        p.lastName  =user.get_last_name
+        p.class     =user.get_class
+        p.email     =user.get_email
+        p.code      =user.get_code
+        p.score     =user.get_score
+        p.alive     =user.get_alive 
+        - target = user.get_target
+        p.target    ="#{target.get_first_name} #{target.get_last_name}"
+    h2 Mord-ordningen
+    div#chainTable
+      - for user in @target_chain
+        p =user.get_first_name + " " + user.get_last_name
+    script src="/js/admin.js"
 - else
   h1 Admin kod
   form action="/admin/login" method="post" id="adminForm"

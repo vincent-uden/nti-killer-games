@@ -82,6 +82,7 @@ class App < Sinatra::Base
       user = User.new row
       row["target_name"] = target.get_first_name + " " + target.get_last_name
       row["score"] = user.get_score
+      row["alive"] = row["alive"] ? "Levande" : "Död"
     end
 
     # Some bonus sorting for score and target
