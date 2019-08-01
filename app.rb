@@ -1,4 +1,3 @@
-#TODO: USE KILLS TABLE
 class App < Sinatra::Base
   # Password for admin page
   # killerpass123
@@ -7,6 +6,7 @@ class App < Sinatra::Base
   enable :sessions
   set :bind, '0.0.0.0'
   register Sinatra::Flash
+  set :public_folder, '/home/vdesktop/github/nti-killer-games/public'
 
   post '/account/login' do
     errors = User.login params['email'], params['password'], session
@@ -33,10 +33,6 @@ class App < Sinatra::Base
     end
   end
 
-  not_found do
-    status 404
-    slim :'404', layout: false
-  end
 
   get '/' do
     if @current_user.null?
@@ -65,6 +61,42 @@ class App < Sinatra::Base
 
 
     slim :'admin/overview'
+  end
+
+  get '/admin/userData' do
+    # Assure that we aren't getting sql injected
+    if params[:column] == "score" || params[:column] == "target"
+      col = "first_name"
+    else
+      col = Database.quote_ident params[:column]
+    end
+    order = params[:order]
+    if order == "desc"
+      order = "DESC"
+    else
+      order = "ASC"
+    end
+
+    result = Database.exec "SELECT * FROM users ORDER BY #{col} #{order};"
+    result.each do |row|
+      target = User.get id: row["target_id"]
+      user = User.new row
+      row["target_name"] = target.get_first_name + " " + target.get_last_name
+      row["score"] = user.get_score
+      row["alive"] = row["alive"] ? "Levande" : "Död"
+    end
+
+    # Some bonus sorting for score and target
+    if params[:column] == "score" && order == "ASC"
+      result = result.sort { |a, b| a["score"] <=> b["score"] }
+    elsif params[:column] == "score" && order == "DESC"
+      result = result.sort { |a, b| b["score"] <=> a["score"] }
+    elsif params[:column] == "target" && order == "ASC"
+      result = result.sort { |a, b| a["target_name"] <=> b["target_name"] }
+    elsif params[:column] == "target" && order == "DESC"
+      result = result.sort { |a, b| b["target_name"] <=> a["target_name"] }
+    end
+    result.to_json
   end
 
   get '/game/overview' do
@@ -97,5 +129,10 @@ class App < Sinatra::Base
       flash[:errors] = [:wrong_code]
     end
     redirect back
+  end
+
+  not_found do
+    status 404
+    slim :'404', layout: false
   end
 end
