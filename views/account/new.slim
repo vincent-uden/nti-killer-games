@@ -1,28 +1,29 @@
-h1 Skapa konto
+link rel="stylesheet" href="/css/create_account.css"
+link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"
+h1.title Skapa konto
 
 form action="/account/new" method="post" id="createForm"
-  input type="text" name="firstName" placeholder="Förnamn"
+  input type="text" name="firstName" placeholder="Förnamn" class="signUpForm"
   - if flash[:errors].include? :empty_first_name
-    p Du måste ange ett förnamn
-  input type="text" name="lastName" placeholder="Efternamn"
+    p.error Du måste ange ett förnamn
+  input type="text" name="lastName" placeholder="Efternamn" class="signUpForm"
   - if flash[:errors].include? :empty_last_name
-    p Du måste ange ett efternamn
-  input type="text" name="email" placeholder="Email"
+    p.error Du måste ange ett efternamn
+  input type="text" name="email" placeholder="Email" class="signUpForm"
   - if flash[:errors].include? :empty_email
-    p Du måste ange en email adress
+    p.error Du måste ange en email adress
   - if flash[:errors].include? :email_exists
-    p Email adressen är redan använd
-  input type="text" name="class" placeholder="Klass"
+    p.error Email adressen är redan använd
+  input type="text" name="class" placeholder="Klass" class="signUpForm"
   - if flash[:errors].include? :invalid_class
-    p Du måste ange en korrekt klass
-  input type="password" name="password" placeholder="Lösenord"
-  input type="password" name="passwordConfirm" placeholder="Confirm password"
+    p.error Du måste ange en korrekt klass
+  input type="password" name="password" placeholder="Lösenord" class="signUpForm"
+  input type="password" name="passwordConfirm" placeholder="Bekräfta lösenord" class="signUpForm"
   - if flash[:errors].include? :empty_password
-    p Du måste ange ett lösenord
+    p.error Du måste ange ett lösenord
   - if flash[:errors].include? :password_dont_match
-    p Lösenorden måste matcha
-  input type="text" name="codeWord" placeholder="Kod"
+    p.error Lösenorden måste matcha
+  input type="text" name="codeWord" placeholder="Kod" class="signUpForm"
   - if flash[:errors].include? :invalid_code_word
-    p Felaktig kod
+    p.error Felaktig kod
   button type="submit" Skapa konto
-
