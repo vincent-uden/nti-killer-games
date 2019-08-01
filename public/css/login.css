@@ -1,12 +1,20 @@
 body {
     background-color: #404040;
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
+h1, p {
     color: #ffff;
-    font-size: 80px;
+    font-size: 40px;
     font-family: 'Roboto', sans-serif;
     font-weight: 90;
+}
+
+p.error {
+    font-size: 2.5vh;
+    text-align: center;
+    padding: 10px;
 }
 
 .title {
@@ -14,7 +22,42 @@ h1 {
     text-align: center;
 }
 
-.loginForm {
-    width: 80vw;
-    height: 10vh;
+input.loginForm {
+    width: 70vw;
+    height: 8vh;
+    margin-left: 15vw;
+    margin-top: 3vh;
+
+    background-color: #404040;
+    color: #fff;
+    font-size: 3vh;
+    line-height: 0.5vh !important;
+
+    border: none;
+    border-bottom: 2px solid #aaa;
 }
+
+input.loginForm:focus {
+    border: none;
+    border-bottom: 2px solid #7c39b3;
+    transition: border-bottom 0.2s linear;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+button {
+    border: none;
+    width: 40vw;
+    height: 6vh;
+    margin-left: 30vw;
+    margin-top: 5vh;
+
+    background-image: radial-gradient(circle, #a84099, #a03d9f, #963aa5, #8a39ac, #7c39b3); color: #fff;
+
+    font-size: 3vh;
+
+    border-radius: 5px 5px 5px 5px;
+g
+
