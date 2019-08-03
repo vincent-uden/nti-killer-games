@@ -39,7 +39,7 @@ input.loginForm {
 
 input.loginForm:focus {
     border: none;
-    border-bottom: 2px solid #7c39b3;
+    border-bottom: 2px solid #8153A4;
     transition: border-bottom 0.2s linear;
 }
 
@@ -54,7 +54,7 @@ button {
     margin-left: 30vw;
     margin-top: 5vh;
 
-    background-image: radial-gradient(circle, #a84099, #a03d9f, #963aa5, #8a39ac, #7c39b3); color: #fff;
+    background-image: radial-gradient(circle, #a84099, #a03d9f, #963aa5, #8a39ac, #8153A4); color: #fff;
 
     font-size: 3vh;
 

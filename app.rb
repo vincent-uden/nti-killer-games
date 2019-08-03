@@ -103,6 +103,7 @@ class App < Sinatra::Base
     if @current_user.null?
       redirect '/account/login'
     else
+      @high_score_list = User.get_high_score_list
       slim :'game/overview'
     end
   end
