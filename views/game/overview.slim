@@ -1,19 +1,22 @@
 
 link rel="stylesheet" href="/css/game_overview.css"
-h1 NTI Killer Games
+h1#ntih1 NTI 
+h1#killerh1 KILLERGAMES
 
 - if @current_user.get_alive
-  div.panel
-    h3 REGLER
 
-  h2 DITT OFFER ÄR
-  div.banner
+  h3#targetHeader DITT OFFER ÄR
+  div.banner id="target"
     h3 ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
     h3 3A
+
+  div.panel id="rules"
+    h3 REGLER
 
   div.panel
     form action="/account/die" method="post" id="dieForm"
       button type="submit" Jag har blivit mördad
+
 
   h1 TOPPLISTA
   div.highScore
@@ -23,6 +26,9 @@ h1 NTI Killer Games
 
   div.banner
     p FÖLJ ELEVKÅREN PÅ INSTAGRAM
+
+  script src="/js/textFit.js"
+  script src="/js/gameOverview.js"
 
 
 - else

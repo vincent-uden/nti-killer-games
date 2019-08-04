@@ -54,7 +54,9 @@ button {
     margin-left: 30vw;
     margin-top: 5vh;
 
-    background-image: radial-gradient(circle, #a84099, #a03d9f, #963aa5, #8a39ac, #8153A4); color: #fff;
+    background-image: linear-gradient(45deg, rgb(112, 84, 203),rgb(232, 47, 180));
+
+    color: #fff;
 
     font-size: 3vh;
 
