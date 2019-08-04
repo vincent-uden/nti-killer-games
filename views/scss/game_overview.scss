@@ -1,0 +1,91 @@
+@import './views/scss/general';
+
+h1, h2, h3, h4, h5, h6, p {
+    color: #ffff;
+    font-size: 40px;
+    font-family: $main-font;
+    font-weight: 90;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 34px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 30px;
+    text-align: center;
+    margin: 0;
+}
+
+p {
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+}
+
+.title {
+    margin-top: 20vh;
+    text-align: center;
+}
+
+div.panel {
+    background-color: #8153A4;
+    width: 60vw;
+    margin-left: 20vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.banner {
+    background-color: #8153A4;
+    width: 100vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.highScore {
+    margin-bottom: 10vh;
+}
+
+button {
+    width: 60vw;
+    height: 5vh;
+
+    background: #8153A4;
+}
+
+
+h1#ntih1 {
+    width: 60vw;
+    margin-left: 20vw;
+    margin-top: 10vh;
+    margin-bottom: 0;
+}
+
+h1#killerh1 {
+    width: 60vw;
+    margin-left: 20vw;
+    margin-top: 0;
+    margin-bottom: 10vh;
+}
+
+div#target {
+    margin-top: 10px;
+    margin-bottom: 15vh;
+}
+
+div#rules {
+    margin-bottom: 5vh;
+}
+
+div#murdered {
+    margin-bottom: 10vh;
+}
+

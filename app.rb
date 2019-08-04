@@ -23,6 +23,18 @@ class App < Sinatra::Base
   end
 
   before do
+    # Compile scss to css
+    scss_files = Dir["./views/scss/**/*.scss"]
+    scss_files.each do |f|
+      scss = SassC::Engine.new File.read(f), style: :compressed
+      scss = scss.render
+      new_path = f.split "scss"
+      new_path = "./public/css#{new_path[1]}css"
+      File.open new_path, 'w' do |file|
+        file.write scss
+      end
+    end
+
     if session[:user_id]
       @current_user = User.get id: session[:user_id]
     else
