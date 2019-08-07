@@ -38,3 +38,18 @@ p.error {
     padding: 10px;
     color: #e86b6b;
 }
+
+div.panel {
+    background: $button-bg;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.banner {
+    background: $button-bg;
+    width: 100vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

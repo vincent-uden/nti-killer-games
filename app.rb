@@ -120,6 +120,14 @@ class App < Sinatra::Base
     end
   end
 
+  get '/game/rules' do
+    if @current_user.null?
+      redirect '/account/login'
+    else
+      slim :'game/rules'
+    end
+  end
+
   post '/account/new' do
     errors = User.create_new_user params
     if errors.empty?
