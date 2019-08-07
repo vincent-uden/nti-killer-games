@@ -1,15 +1,21 @@
-h1 Logga in!
+link rel="stylesheet" href="/css/login.css"
+link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"
+
+div.title
+  h1 LOGGA IN
 
 - if @current_user.null?
   form action="/account/login" method="post" id="loginForm"
-    input type="text" name="email" placeholder="Email"
+    input class="loginForm" type="text" name="email" placeholder="Email"
     - if flash[:errors].include? :wrong_email
-      p Användaren finns inte
-    input type="password" name="password" placeholder="Lösenord"
+      p.error Användaren finns inte
+    input class="loginForm" type="password" name="password" placeholder="Lösenord"
     - if flash[:errors].include? :wrong_password
-      p Emailen och lösenordet stämde inte överens
-    button type="submit" Logga in
+      p.error Emailen och lösenordet stämde inte överens
+    button class="squish" type="submit" Logga in
+
 - else
   h2 Du är redan inloggad
 
-a href="/account/new" Skapa konto
+a href="/account/new" 
+  button class="squish" Skapa konto

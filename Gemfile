@@ -6,7 +6,7 @@ gem 'pg' # Postgres
 gem 'bcrypt'
 gem 'rerun'
 gem 'awesome_print'
-gem 'sass'
+gem 'sassc'
 gem 'sinatra-flash'
 gem 'capybara'
 gem 'rspec'

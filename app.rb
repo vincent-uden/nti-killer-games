@@ -4,6 +4,7 @@ class App < Sinatra::Base
   admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
 
   enable :sessions
+  set :bind, '0.0.0.0'
   register Sinatra::Flash
   set :public_folder, '/home/vdesktop/github/nti-killer-games/public'
 
@@ -22,6 +23,18 @@ class App < Sinatra::Base
   end
 
   before do
+    # Compile scss to css
+    scss_files = Dir["./views/scss/**/*.scss"]
+    scss_files.each do |f|
+      scss = SassC::Engine.new File.read(f), style: :compressed
+      scss = scss.render
+      new_path = f.split "scss"
+      new_path = "./public/css#{new_path[1]}css"
+      File.open new_path, 'w' do |file|
+        file.write scss
+      end
+    end
+
     if session[:user_id]
       @current_user = User.get id: session[:user_id]
     else
@@ -35,7 +48,7 @@ class App < Sinatra::Base
 
   get '/' do
     if @current_user.null?
-      slim :index
+      slim :'account/login'
     else
       redirect '/game/overview'
     end
@@ -102,7 +115,16 @@ class App < Sinatra::Base
     if @current_user.null?
       redirect '/account/login'
     else
+      @high_score_list = User.get_high_score_list
       slim :'game/overview'
+    end
+  end
+
+  get '/game/rules' do
+    if @current_user.null?
+      redirect '/account/login'
+    else
+      slim :'game/rules'
     end
   end
 

@@ -1,0 +1,46 @@
+@import './views/scss/general';
+
+h1, p {
+    color: #fff;
+    font-size: 40px;
+    font-family: $main-font;
+    font-weight: 90;
+}
+
+.title {
+    margin-top: 20vh;
+    text-align: center;
+}
+
+input.loginForm {
+    width: 70vw;
+    height: 8vh;
+    margin-left: 15vw;
+    margin-top: 3vh;
+
+    background-color: #00000000;
+    color: #fff;
+    font-size: 3vh;
+    line-height: 0.5vh !important;
+
+    border: none;
+    border-bottom: 2px solid #aaa;
+}
+
+input.loginForm:focus {
+    border: none;
+    border-bottom: 2px solid #8153A4;
+    transition: border-bottom 0.2s linear;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+button {
+    width: 40vw;
+    height: 6vh;
+    margin-left: 30vw;
+    margin-top: 5vh;
+}
+

@@ -212,4 +212,9 @@ class User < Table
     chain
   end
 
+  def self.get_high_score_list
+    query = "select first_name, last_name, class, case when kill_count is null then 0 else kill_count end as kill_count from users left join (select killer_id, count(1) as kill_count from kills group by killer_id) n1 on users.id = n1.killer_id order by kill_count desc limit 5;"
+    Database.exec query
+  end
+
 end

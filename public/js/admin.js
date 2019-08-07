@@ -125,5 +125,6 @@ function tableHeaderOnClick(index, className) {
     getUserData(classNames.get(className), orderStates.get(sortingStates[index]))
 }
 
+// TODO: Add clicky mouse cursor on hover
 setupOnClicks();
 getUserData("class", "asc");
