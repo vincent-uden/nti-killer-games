@@ -12,9 +12,10 @@ div.title
     input class="loginForm" type="password" name="password" placeholder="Lösenord"
     - if flash[:errors].include? :wrong_password
       p.error Emailen och lösenordet stämde inte överens
-    button type="submit" Logga in
+    button class="squish" type="submit" Logga in
+
 - else
   h2 Du är redan inloggad
 
 a href="/account/new" 
-  button Skapa konto
+  button class="squish" Skapa konto

@@ -34,7 +34,7 @@ p {
 }
 
 div.panel {
-    background-color: #8153A4;
+    background: $button-bg;
     width: 60vw;
     margin-left: 20vw;
     padding-top: 10px;
@@ -42,7 +42,7 @@ div.panel {
 }
 
 div.banner {
-    background-color: #8153A4;
+    background: $button-bg;
     width: 100vw;
     margin-top: 5vh;
     margin-bottom: 5vh;
@@ -57,8 +57,6 @@ div.highScore {
 button {
     width: 60vw;
     height: 5vh;
-
-    background: #8153A4;
 }
 
 
@@ -81,11 +79,27 @@ div#target {
     margin-bottom: 15vh;
 }
 
+$murdered-height: 8vh;
 div#rules {
     margin-bottom: 5vh;
+    padding: 0;
+    background: #00000000;
+    height: $murdered-height;
+
+    button {
+        height: $murdered-height;
+    }
 }
 
 div#murdered {
     margin-bottom: 10vh;
+    padding: 0;
+    background: #00000000;
+    height: $murdered-height;
+
+    button {
+        height: $murdered-height;
+    }
 }
+
 

@@ -26,4 +26,4 @@ form action="/account/new" method="post" id="createForm"
   input type="text" name="codeWord" placeholder="Kod" class="signUpForm"
   - if flash[:errors].include? :invalid_code_word
     p.error Felaktig kod
-  button type="submit" Skapa konto
+  button class="squish" type="submit" Skapa konto

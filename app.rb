@@ -48,7 +48,7 @@ class App < Sinatra::Base
 
   get '/' do
     if @current_user.null?
-      slim :index
+      slim :'account/login'
     else
       redirect '/game/overview'
     end

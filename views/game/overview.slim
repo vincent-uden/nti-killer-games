@@ -11,11 +11,12 @@ h1#killerh1 KILLERGAMES
     h3 3A
 
   div.panel id="rules"
-    h3 REGLER
+    form action="/game/rules" method="get"
+      button class="squish" type="submit" REGLER
 
   div.panel id="murdered"
     form action="/account/die" method="post" id="dieForm"
-      button type="submit" Jag har blivit mördad
+      button class="squish" type="submit" Jag har blivit mördad
 
 
   h1 TOPPLISTA
