@@ -6,4 +6,17 @@ let interval = setInterval(function() {
     }
 }, 50);
 
+function confirmDeath() {
+    let popupDiv = document.getElementById("confirmDeathWrapper");
+    popupDiv.classList.add("poppedUp");
+    let container = document.getElementById("container");
+    container.classList.add("blurred");
+}
+
+function cancelPopup() {
+    let popupDiv = document.getElementById("confirmDeathWrapper");
+    popupDiv.classList.remove("poppedUp");
+    let container = document.getElementById("container");
+    container.classList.remove("blurred");
+}
 
