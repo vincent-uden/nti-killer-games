@@ -1,6 +1,6 @@
 class Helper
   
-  @TEST_EMAIL = 'alexander@example.org'
+  @TEST_EMAIL = 'dorla@example.com'
   @TEST_PASSWORD = 'testpass123'
 
   def self.TEST_EMAIL
@@ -13,5 +13,6 @@ class Helper
 
   def self.populate_user_data
     `pg_dump backup_nti | psql testing_nti`
+    sleep 2
   end
 end

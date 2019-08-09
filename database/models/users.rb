@@ -58,8 +58,8 @@ class User < Table
         end
         query = query[0..-3]
         query += " WHERE id = $#{index};"
+        Database.exec_params query, diffs.values + [get_id]
       end
-      Database.exec_params query, diffs.values + [get_id]
     end
   end
 

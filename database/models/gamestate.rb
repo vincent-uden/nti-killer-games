@@ -30,4 +30,16 @@ class GameState < Table
   def self.postgame?
     get_state == :postgame
   end
+
+  def self.set_running
+    Database.exec 'UPDATE gamestate SET current_state = 1;'
+  end
+
+  def self.set_pregame
+    Database.exec 'UPDATE gamestate SET current_state = 0;'
+  end
+
+  def self.set_postgame
+    Database.exec 'UPDATE gamestate SET current_state = 2;'
+  end
 end
