@@ -47,7 +47,6 @@ class App < Sinatra::Base
 
 
   get '/' do
-    GameState.get_state
     if @current_user.null?
       slim :'account/login'
     else
@@ -120,8 +119,12 @@ class App < Sinatra::Base
     if @current_user.null?
       redirect '/account/login'
     else
-      @high_score_list = User.get_high_score_list
-      slim :'game/overview'
+      if GameState.pregame?
+        slim :'/pregame'
+      else
+        @high_score_list = User.get_high_score_list
+        slim :'game/overview'
+      end
     end
   end
 

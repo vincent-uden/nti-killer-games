@@ -1,0 +1,50 @@
+@import './views/scss/general';
+
+div.container {
+    width: 80vw;
+    margin-left: 10vw;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: #ffff;
+    font-size: 40px;
+    font-family: $main-font;
+    font-weight: 90;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 34px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 30px;
+    text-align: center;
+    margin: 0;
+}
+
+p {
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+}
+
+a {
+    cursor: pointer;
+}
+
+a:link {
+    color: #54c6ff;
+}
+
+a:visited {
+    color: #54c6ff;
+}
+
+a:hover {
+    color: #54c6ff;
+}
