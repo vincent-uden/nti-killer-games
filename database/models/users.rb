@@ -72,15 +72,17 @@ class User < Table
   end
 
   def die
-    murderer = self.class.get target_id: get_id
+    if get_alive
+      murderer = self.class.get target_id: get_id
 
-    murderer.set_target_id get_target_id
-    murderer.save
+      murderer.set_target_id get_target_id
+      murderer.save
 
-    Kill.create_new_kill killer_id: murderer.get_id, victim_id: get_id
+      Kill.create_new_kill killer_id: murderer.get_id, victim_id: get_id
 
-    set_alive false
-    save
+      set_alive false
+      save
+    end
   end
 
   def get_score
