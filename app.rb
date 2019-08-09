@@ -56,7 +56,11 @@ class App < Sinatra::Base
   end
 
   get '/account/login' do
-    slim :'account/login'
+    if @current_user.null?
+      slim :'account/login'
+    else
+      redirect '/game/overview'
+    end
   end
 
   get '/account/new' do

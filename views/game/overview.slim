@@ -25,28 +25,28 @@ div#container
       h3 
     
 
-    div.panel id="rules"
-      form action="/game/rules" method="get"
-        button class="squish" type="submit" REGLER
+  div.panel id="rules"
+    form action="/game/rules" method="get"
+      button class="squish" type="submit" REGLER
 
-    div.panel id="murdered"
-      - if @current_user.get_alive
-        button onclick="confirmDeath()" class="squish" type="submit" Jag har blivit dödad
-      - else
-        button onclick="confirmDeath()" class="squish disabled" type="submit" disabled="true" Jag har blivit dödad
+  div.panel id="murdered"
+    - if @current_user.get_alive
+      button onclick="confirmDeath()" class="squish" type="submit" Jag har blivit dödad
+    - else
+      button onclick="confirmDeath()" class="squish disabled" type="submit" disabled="true" Jag har blivit dödad
 
 
 
-    h1 TOPPLISTA
-    div.highScore
-      - for user in @high_score_list
-        div.banner
-          p ="#{user["first_name"]} #{user["last_name"]} #{user["class"]} - #{user["kill_count"]} poäng"
+  h1 TOPPLISTA
+  div.highScore
+    - for user in @high_score_list
+      div.banner
+        p ="#{user["first_name"]} #{user["last_name"]} #{user["class"]} - #{user["kill_count"]} poäng"
 
-    div.banner
-      p FÖLJ ELEVKÅREN PÅ INSTAGRAM
+  div.banner
+    p FÖLJ ELEVKÅREN PÅ INSTAGRAM
 
-    script src="/js/textFit.js"
-    script src="/js/gameOverview.js"
+  script src="/js/textFit.js"
+  script src="/js/gameOverview.js"
 
 
