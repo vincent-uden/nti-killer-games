@@ -18,12 +18,22 @@ div#container
       h3 ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
       h3 3A
 
+  - else
+    h3#targetHeader DU ÄR DÖD
+    div.banner id="target"
+      h3 -
+      h3 
+    
+
     div.panel id="rules"
       form action="/game/rules" method="get"
         button class="squish" type="submit" REGLER
 
     div.panel id="murdered"
-      button onclick="confirmDeath()" class="squish" type="submit" Jag har blivit dödad
+      - if @current_user.get_alive
+        button onclick="confirmDeath()" class="squish" type="submit" Jag har blivit dödad
+      - else
+        button onclick="confirmDeath()" class="squish disabled" type="submit" disabled="true" Jag har blivit dödad
 
 
 
@@ -40,5 +50,3 @@ div#container
     script src="/js/gameOverview.js"
 
 
-  - else
-    p Du är död

@@ -108,6 +108,8 @@ div#container {
     padding-top: 10vh;
     transition: filter .5s linear;
     background: $main-bg;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 div.blurred {
@@ -156,4 +158,9 @@ div#confirmDeathPopup {
         margin-left: 10vw;
     }
 
+}
+
+button.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
 }
