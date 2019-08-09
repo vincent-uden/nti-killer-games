@@ -47,6 +47,7 @@ class App < Sinatra::Base
 
 
   get '/' do
+    GameState.get_state
     if @current_user.null?
       slim :'account/login'
     else

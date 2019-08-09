@@ -7,6 +7,26 @@ h1, p {
     font-weight: 90;
 }
 
+h2 {
+    color: #ffff;
+    font-size: 30;
+    font-family: $main-font;
+    font-weight: 90;
+
+    width: 60vw;
+    margin-left: 10vw;
+
+    text-align: center;
+}
+
+div.panel {
+    width: 80vw;
+    margin-left: 10vw;
+    margin-top: 20vh;
+
+    border-radius: 10px;
+}
+
 .title {
     margin-top: 10vh;
     text-align: center;
