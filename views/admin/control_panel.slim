@@ -1,0 +1,33 @@
+link rel="stylesheet" type="text/css" href="/css/control_panel.css"
+
+- if @is_superuser
+  main
+    h1 KONTROLLPANEL
+    - if GameState.pregame?
+      h2 NTI Killer Games har inte startat än
+    - if GameState.running?
+      h2 NTI Killer Games är igång
+    - if GameState.postgame?
+      h2 NTI Killer Games är över
+
+    - if GameState.pregame?
+      button onclick="setGameState(0)" class="squish disabled" disabled="true" Sätt gamestate till pregame
+    - else
+      button class="squish" Sätt gamestate till pregame
+    - if GameState.running?
+      button onclick="setGameState(0)" class="squish disabled" disabled="true" Sätt gamestate till running
+    - else
+      button class="squish" Sätt gamestate till running
+    - if GameState.postgame?
+      button onclick="setGameState(0)" class="squish disabled" disabled="true" Sätt gamestate till postgame
+    - else
+      button class="squish" Sätt gamestate till postgame
+      
+      
+- else
+  h1 Superuser login
+  form action="/superuser/login" method="post" id="superuserForm"
+    input type="password" name="superuserCode"
+    - if flash[:errors].include? :wrong_code
+      p Fel kod
+    button type="submit" Logga in
