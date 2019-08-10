@@ -4,14 +4,15 @@ feature 'Living/Dying' do
   before :each do
     visit '/account/login'
     within '#loginForm' do
-      fill_in 'email',    with: 'elisa@example.org'
+      fill_in 'email',    with: 'dario@example.net'
       fill_in 'password', with: Helper.TEST_PASSWORD
     end
     click_button 'Logga in'
   end
 
   scenario 'Getting killed' do
-    help_user = User.get email: 'elisa@example.org'
+    GameState.set_running
+    help_user = User.get email: 'dario@example.net'
     murderer = User.get target_id: help_user.get_id
     visit '/'
     click_button 'Jag har blivit dödad'
