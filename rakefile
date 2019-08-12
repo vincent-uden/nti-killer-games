@@ -10,11 +10,18 @@ task :debug do
 end
 
 task :test do
-  sh 'dropdb testing_nti'
+  sh 'dropdb testing_nti --if-exists'
   sh 'createdb testing_nti'
+  tags = ENV['tags']
   begin
-    sh 'bundle exec rspec --format documentation'
+    if tags
+      sh "bundle exec rspec --format documentation --tag #{tags}"
+    else 
+      sh 'bundle exec rspec --format documentation'
+    end
+    sh 'dropdb testing_nti'
   rescue RuntimeError => e
+    sh 'dropdb testing_nti'
     exit 1
   end
 end

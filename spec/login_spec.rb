@@ -2,19 +2,21 @@ require_relative 'helpers/spec_helper'
 
 feature 'Entering the web page' do
   scenario 'Logging in' do
+    GameState.set_running
     visit '/account/login'
-    expect(page).to have_content 'Logga in!'
+    expect(page).to have_content 'Logga in'
     within '#loginForm' do
       fill_in 'email',    with: Helper.TEST_EMAIL
       fill_in 'password', with: Helper.TEST_PASSWORD
     end
     click_button 'Logga in'
-    expect(page).to have_content 'Game Overview'
+    expect(page).to have_content 'DITT OFFER ÄR'
   end
 
   scenario 'Failing to log in' do
+    GameState.set_running
     visit '/account/login'
-    expect(page).to have_content 'Logga in!'
+    expect(page).to have_content 'Logga in'
     within '#loginForm' do
       fill_in 'email',    with: Helper.TEST_EMAIL
       fill_in 'password', with: 'asdjasl'
@@ -24,6 +26,7 @@ feature 'Entering the web page' do
   end
 
   scenario 'Creating Account' do
+    GameState.set_pregame
     visit '/account/new'
     expect(page).to have_content 'Skapa konto'
     within '#createForm' do
@@ -36,10 +39,11 @@ feature 'Entering the web page' do
       fill_in 'codeWord',        with: 'green-alligator-nurse'
     end
     click_button 'Skapa konto'
-    expect(page).to have_content 'Logga in!'
+    expect(page).to have_content 'Logga in'
   end
   
   scenario 'Failing to create an account' do
+    GameState.set_pregame
     visit '/account/new'
     expect(page).to have_content 'Skapa konto'
     within '#createForm' do

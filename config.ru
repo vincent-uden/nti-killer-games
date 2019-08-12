@@ -9,6 +9,7 @@ require_relative 'database/database'
 require_relative 'database/models/tables'
 require_relative 'database/models/code_words'
 require_relative 'database/models/users'
+require_relative 'database/models/gamestate'
 require 'webrick/https'
 
 use Rack::SSL

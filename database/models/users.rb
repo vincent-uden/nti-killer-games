@@ -58,8 +58,8 @@ class User < Table
         end
         query = query[0..-3]
         query += " WHERE id = $#{index};"
+        Database.exec_params query, diffs.values + [get_id]
       end
-      Database.exec_params query, diffs.values + [get_id]
     end
   end
 
@@ -189,7 +189,7 @@ class User < Table
     user.set_last_name user_info["lastName"]
     user.set_email user_info["email"]
     user.set_class user_info["class"]
-    user.set_password user_info["password"]
+    user.set_password BCrypt::Password.create(user_info["password"])
     user.set_code user_info["codeWord"]
 
     if errors.empty?

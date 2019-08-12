@@ -3,6 +3,8 @@ class App < Sinatra::Base
   # killerpass123
   admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
 
+  superuser_pass = "$2a$12$DTlPftuCRgLIyRuqWiixvu4wk8C36YX21Kjyqjk0Ef8s0kkI8njAa"
+
   enable :sessions
   set :bind, '0.0.0.0'
   register Sinatra::Flash
@@ -45,7 +47,6 @@ class App < Sinatra::Base
     end
   end
 
-
   get '/' do
     if @current_user.null?
       slim :'account/login'
@@ -55,7 +56,11 @@ class App < Sinatra::Base
   end
 
   get '/account/login' do
-    slim :'account/login'
+    if @current_user.null?
+      slim :'account/login'
+    else
+      redirect '/game/overview'
+    end
   end
 
   get '/account/new' do
@@ -63,7 +68,7 @@ class App < Sinatra::Base
   end
 
   get '/admin/overview' do
-    if session[:admin]
+    if session[:admin] || session[:superuser]
       @is_admin = true
       @users = User.select(order_by: 'class, first_name').map { |x| User.new x  }
       @target_chain = User.get_target_chain
@@ -73,6 +78,17 @@ class App < Sinatra::Base
 
 
     slim :'admin/overview'
+  end
+
+  get '/admin/control_panel' do
+    if session[:superuser]
+      @is_superuser = true
+      @gamestate = GameState.get_state
+    else
+      @is_superuser = false
+    end
+
+    slim :'admin/control_panel'
   end
 
   get '/admin/userData' do
@@ -115,8 +131,12 @@ class App < Sinatra::Base
     if @current_user.null?
       redirect '/account/login'
     else
-      @high_score_list = User.get_high_score_list
-      slim :'game/overview'
+      if GameState.pregame?
+        slim :'/pregame'
+      else
+        @high_score_list = User.get_high_score_list
+        slim :'game/overview'
+      end
     end
   end
 
@@ -146,6 +166,15 @@ class App < Sinatra::Base
   post '/admin/login' do
     if BCrypt::Password.new(admin_pass) == params['adminCode']
       session[:admin] = true
+    else
+      flash[:errors] = [:wrong_code]
+    end
+    redirect back
+  end
+
+  post '/superuser/login' do
+    if BCrypt::Password.new(superuser_pass) == params['superuserCode']
+      session[:superuser] = true
     else
       flash[:errors] = [:wrong_code]
     end
