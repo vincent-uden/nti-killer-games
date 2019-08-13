@@ -15,6 +15,10 @@ class GameState < Table
     @states
   end
 
+  def self.get_state_number
+    select_all[0]["current_state"]
+  end
+
   def self.get_state
     states[select_all[0]["current_state"]]
   end

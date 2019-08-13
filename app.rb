@@ -92,6 +92,9 @@ class App < Sinatra::Base
   end
 
   get '/admin/userData' do
+    if !(session[:admin] || session[:superuser])
+      halt 200
+    end
     # Assure that we aren't getting sql injected
     if params[:column] == "score" || params[:column] == "target"
       col = "first_name"
@@ -179,6 +182,22 @@ class App < Sinatra::Base
       flash[:errors] = [:wrong_code]
     end
     redirect back
+  end
+
+  post '/superuser/setGameState' do
+    if session[:superuser]
+      state = params[:state].to_i
+      if state == 0
+        GameState.set_pregame
+      elsif state == 1
+        GameState.set_running
+      elsif state == 2
+        GameState.set_postgame
+      end
+      GameState.get_state_number.to_s
+    else
+      -1.to_s
+    end
   end
 
   not_found do
