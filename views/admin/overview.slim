@@ -3,6 +3,8 @@ link rel="stylesheet" type="text/css" href="/css/admin.css"
 - if @is_admin
   main
     h1 Administrering
+    form action="/account/logout" method="post"
+      button class="squish logoutButton" type="submit" Logga ut
     h2 Spelare
     div#userHeader
       p class="tableHead firstName" Förnamn

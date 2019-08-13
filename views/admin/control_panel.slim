@@ -22,6 +22,10 @@ link rel="stylesheet" type="text/css" href="/css/control_panel.css"
       button onclick="setGameState(2)" class="stateButton squish disabled" disabled="true" Sätt gamestate till postgame
     - else
       button onclick="setGameState(2)" class="stateButton squish" Sätt gamestate till postgame
+
+    form action="/account/logout" method="post"
+      button class="squish logoutButton" type="submit" Logga ut
+
     script src="/js/control_panel.js"
       
       

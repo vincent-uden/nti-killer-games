@@ -8,7 +8,7 @@ require_relative './generate-codes'
 require_relative '../utils.rb'
 
 def generate_sequence
-  users = User.select_all.map { |x| User.new x }
+  users = User.select(where: "alive = true").map { |u| User.new u }
   users.shuffle!
 
   users.each_with_index do |user, index|

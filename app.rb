@@ -22,6 +22,7 @@ class App < Sinatra::Base
 
   post '/account/logout' do
     session.destroy
+    redirect '/'
   end
 
   before do
@@ -165,6 +166,7 @@ class App < Sinatra::Base
     @current_user.die
     redirect back
   end
+
 
   post '/admin/login' do
     if BCrypt::Password.new(admin_pass) == params['adminCode']
