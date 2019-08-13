@@ -164,3 +164,12 @@ button.disabled {
     opacity: 0.35;
     cursor: not-allowed;
 }
+
+button.logoutButton {
+    margin-top: 4vh;
+    margin-left: 20vw;
+    margin-bottom: 10vh;
+    height: $murdered-height;
+}
+
+

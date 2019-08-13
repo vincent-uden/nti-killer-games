@@ -33,7 +33,7 @@ div#container
     - if @current_user.get_alive
       button onclick="confirmDeath()" class="squish" type="submit" Jag har blivit dödad
     - else
-      button onclick="confirmDeath()" class="squish disabled" type="submit" disabled="true" Jag har blivit dödad
+      button class="squish disabled" type="submit" disabled="true" Jag har blivit dödad
 
 
 
@@ -42,6 +42,9 @@ div#container
     - for user in @high_score_list
       div.banner
         p ="#{user["first_name"]} #{user["last_name"]} #{user["class"]} - #{user["kill_count"]} poäng"
+
+  form action="/account/logout" method="post"
+    button class="squish logoutButton" type="submit" Logga ut
 
   div.banner
     p FÖLJ ELEVKÅREN PÅ INSTAGRAM

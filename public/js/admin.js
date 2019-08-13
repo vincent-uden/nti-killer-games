@@ -5,13 +5,14 @@ function getUserData(column, order) {
     const url = "/admin/userData?column=" + column + "&" + "order=" + order;
 
     Http.open("GET", url);
-    Http.send();
 
     Http.onreadystatechange = function() {
         if ( this.readyState == 4 && this.status == 200 ) {
             updateUserTable(JSON.parse(Http.responseText));
         }
     }
+
+    Http.send();
 }
 
 function updateUserTable(userData) {

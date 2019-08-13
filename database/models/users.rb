@@ -207,6 +207,9 @@ class User < Table
     chain = []
     chain << next_user
     while next_user != start_user
+      dp start_user
+      dp next_id
+      dp next_user
       next_id = next_user.get_target_id
       next_user = (users.select { |u| u.get_id == next_id }).first
       chain << next_user
