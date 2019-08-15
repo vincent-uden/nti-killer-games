@@ -5,22 +5,16 @@ h1, p {
     font-size: 40px;
     font-family: $main-font;
     font-weight: 90;
-}
-
-p.pwReset {
-    font-size: 16px;
-    width: 70vw;
     margin-left: 15vw;
-    color: #aaa;
-}
-
-a#pwReset {
-    color: #aaa;
-}
-
-.title {
-    margin-top: 20vh;
+    margin-right: 15vw;
     text-align: center;
+    padding-top: 10vh;
+    margin-top: 0;
+}
+
+p {
+    font-size: 18px;
+    padding-top: 1vh
 }
 
 input.loginForm {

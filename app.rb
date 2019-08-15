@@ -68,6 +68,10 @@ class App < Sinatra::Base
     slim :'account/new'
   end
 
+  get '/account/resetpw' do
+    slim :'account/resetpw'
+  end
+
   get '/admin/overview' do
     if session[:admin] || session[:superuser]
       @is_admin = true
@@ -165,6 +169,16 @@ class App < Sinatra::Base
   post '/account/die' do
     @current_user.die
     redirect back
+  end
+
+  post '/account/resetpw' do
+    user = User.get email: params[:email]
+    if user.null?
+      flash[:errors] = [:wrong_email]
+      redirect back
+    else
+      PasswordReset.create_password_reset user.get_id
+    end
   end
 
 

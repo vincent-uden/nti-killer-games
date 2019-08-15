@@ -10,7 +10,9 @@ require_relative 'database/models/tables'
 require_relative 'database/models/code_words'
 require_relative 'database/models/users'
 require_relative 'database/models/gamestate'
+require_relative 'database/models/password-reset'
 require 'webrick/https'
+require 'securerandom'
 
 use Rack::SSL
 
