@@ -146,6 +146,18 @@ class User < Table
     errors
   end
 
+  def self.validate_new_password(password, passwordConfirm)
+    # TODO: Make create_new_user use this method
+    errors = []
+    if password == ""
+      errors << :empty_password
+    end
+    if password != passwordConfirm
+      errors << :password_dont_match
+    end
+    errors
+  end
+
   def self.create_new_user(user_info)
     errors = []
     user = null_user

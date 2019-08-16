@@ -14,7 +14,19 @@ h1, p {
 
 p {
     font-size: 18px;
-    padding-top: 1vh
+    padding-top: 1vh;
+}
+
+a {
+    color: #aaa;
+}
+
+a.done {
+    width: 40vw;
+    margin-left: 30vw;
+    text-align: center;
+    font-family: $main-font;
+    display: block;
 }
 
 input.loginForm {
@@ -47,5 +59,11 @@ button {
     height: 6vh;
     margin-left: 30vw;
     margin-top: 5vh;
+}
+
+button.newPw {
+    height: auto !important;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
 }
 

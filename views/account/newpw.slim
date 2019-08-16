@@ -1,0 +1,23 @@
+link rel="stylesheet" href="/css/resetpw.css"
+
+- if @validated
+  h1 Välj ett nytt lösenord
+  form action="/account/setnewpw?token=#{@token}&email=#{@email}" method="post" id="newPwForm"
+    input class="loginForm" type="password" name="password" placeholder="Nytt lösenord"
+    input class="loginForm" type="password" name="passwordConfirm" placeholder="Bekräfta nytt lösenord"
+    - if flash[:errors].include? :empty_password
+      p.error Du måste ange ett lösenord
+    - if flash[:errors].include? :password_dont_match
+      p.error Lösenorden måste matcha
+    button class="squish newPw" type="submit" Skapa nytt lösenord
+
+- else
+  - if flash[:msg].include? :new_pw_set
+    p.success Ditt konto har nu fått ett nytt lösenord 
+    a.done href="/" Tillbaka till inloggningen
+  - else
+    h1 Din återställningskod och mailadress matcher inte
+    p 
+      ' Testa 
+      a href="/account/resetpw" ansöka om en ny återställning
+      '  och om problemet kvarstår, kontakta mig på vincentuden@gmail.com

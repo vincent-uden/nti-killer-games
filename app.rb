@@ -45,6 +45,9 @@ class App < Sinatra::Base
     if !flash[:errors] 
       flash.now[:errors] = []
     end
+    if !flash[:msg] 
+      flash.now[:msg] = []
+    end
   end
 
   get '/' do
@@ -69,6 +72,14 @@ class App < Sinatra::Base
 
   get '/account/resetpw' do
     slim :'account/resetpw'
+  end
+
+  get '/account/newpw' do
+    @token = params[:token]
+    @email = params[:email]
+    @validated = PasswordReset.validate_token @token, @email
+    # TODO: Create post handling for this
+    slim :'account/newpw'
   end
 
   get '/admin/overview' do
@@ -177,8 +188,24 @@ class App < Sinatra::Base
       redirect back
     else
       PasswordReset.create_password_reset user.get_id
-      # TODO: Add redirect
+      flash[:msg] = [:pw_reset]
+      redirect back
     end
+  end
+
+  post '/account/setnewpw' do
+    token = params[:token]
+    email = params[:email]
+    new_pw = params[:password]
+    new_pw_conf = params[:passwordConfirm]
+    errors = User.validate_new_password new_pw, new_pw_conf
+    if errors.empty? && PasswordReset.validate_token(token, email)
+      flash[:msg] = [:new_pw_set]
+      PasswordReset.set_new_password new_pw, token, email
+    else
+      flash[:errors] = errors
+    end
+    redirect back
   end
 
 
