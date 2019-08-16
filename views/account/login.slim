@@ -12,6 +12,8 @@ div.title
     input class="loginForm" type="password" name="password" placeholder="Lösenord"
     - if flash[:errors].include? :wrong_password
       p.error Emailen och lösenordet stämde inte överens
+    a#pwReset href="/account/resetpw" 
+      p.pwReset Glömt lösenordet?
     button class="squish" type="submit" Logga in
 
 - else

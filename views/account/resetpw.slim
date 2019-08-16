@@ -1,0 +1,12 @@
+link rel="stylesheet" href="/css/resetpw.css"
+
+h1 Glömt lösenordet?
+form action="/account/resetpw" method="post" id="resetForm"
+  input class="loginForm" type="text" name="email" placeholder="Email"
+  - if flash[:errors].include? :wrong_email
+    p.error Det finns ingen användare med den mailadressen
+  - if flash[:msg].include? :pw_reset
+    p class="success info" Ett mail har nu skickats till din epost. Följ anvisningarna där för att skapa ett nytt lösenord.
+  - else 
+    p.info Du kommer få ett mail till den registrerade emailadressen för kontot med en länk som gäller i 24 timmar där du kan välja ett nytt lösenord.
+  button class="squish" type="submit" Återställ

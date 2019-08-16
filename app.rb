@@ -1,7 +1,6 @@
 class App < Sinatra::Base
   # Password for admin page
-  # killerpass123
-  admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
+  # killerpass123 admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
 
   superuser_pass = "$2a$12$DTlPftuCRgLIyRuqWiixvu4wk8C36YX21Kjyqjk0Ef8s0kkI8njAa"
 
@@ -46,6 +45,9 @@ class App < Sinatra::Base
     if !flash[:errors] 
       flash.now[:errors] = []
     end
+    if !flash[:msg] 
+      flash.now[:msg] = []
+    end
   end
 
   get '/' do
@@ -66,6 +68,18 @@ class App < Sinatra::Base
 
   get '/account/new' do
     slim :'account/new'
+  end
+
+  get '/account/resetpw' do
+    slim :'account/resetpw'
+  end
+
+  get '/account/newpw' do
+    @token = params[:token]
+    @email = params[:email]
+    @validated = PasswordReset.validate_token @token, @email
+    # TODO: Create post handling for this
+    slim :'account/newpw'
   end
 
   get '/admin/overview' do
@@ -164,6 +178,33 @@ class App < Sinatra::Base
 
   post '/account/die' do
     @current_user.die
+    redirect back
+  end
+
+  post '/account/resetpw' do
+    user = User.get email: params[:email]
+    if user.null?
+      flash[:errors] = [:wrong_email]
+      redirect back
+    else
+      PasswordReset.create_password_reset user.get_id
+      flash[:msg] = [:pw_reset]
+      redirect back
+    end
+  end
+
+  post '/account/setnewpw' do
+    token = params[:token]
+    email = params[:email]
+    new_pw = params[:password]
+    new_pw_conf = params[:passwordConfirm]
+    errors = User.validate_new_password new_pw, new_pw_conf
+    if errors.empty? && PasswordReset.validate_token(token, email)
+      flash[:msg] = [:new_pw_set]
+      PasswordReset.set_new_password new_pw, token, email
+    else
+      flash[:errors] = errors
+    end
     redirect back
   end
 
