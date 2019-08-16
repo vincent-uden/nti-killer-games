@@ -1,7 +1,6 @@
 class App < Sinatra::Base
   # Password for admin page
-  # killerpass123
-  admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
+  # killerpass123 admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
 
   superuser_pass = "$2a$12$DTlPftuCRgLIyRuqWiixvu4wk8C36YX21Kjyqjk0Ef8s0kkI8njAa"
 
@@ -178,6 +177,7 @@ class App < Sinatra::Base
       redirect back
     else
       PasswordReset.create_password_reset user.get_id
+      # TODO: Add redirect
     end
   end
 
