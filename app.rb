@@ -1,4 +1,4 @@
-$domain_name = "192.168.2.222"
+$domain_name = "192.168.2.222:9292"
 
 class App < Sinatra::Base
   # Password for admin page
