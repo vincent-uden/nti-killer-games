@@ -1,3 +1,5 @@
+$domain_name = "192.168.2.222"
+
 class App < Sinatra::Base
   # Password for admin page
   # killerpass123 admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"

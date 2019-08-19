@@ -19,7 +19,7 @@ class MailHandler
       },
       subject: 'NTI Killergames, Återställ lösenord',
       headers: { 'Content-Type' => 'text/html' },
-      body: "<h1>Återställ ditt lösenord</h1><p>Hej #{user.get_first_name}!<br>Vi har nyligen fått en ansökan om att återställa lösenordet på ditt konto. Om detta var du följer du länken nedan för att välja ett nytt lösenord. Annars borde du dubbelkolla säkerheten på ditt mail-konto och radera detta mail.</p><a href=\"https://localhost:9292/account/newpw?token=#{token}&email=#{user.get_email}\">localhost:9292/account/newpw?token=#{token}&email=#{user.get_email}</a>"
+      body: "<h1>Återställ ditt lösenord</h1><p>Hej #{user.get_first_name}!<br>Vi har nyligen fått en ansökan om att återställa lösenordet på ditt konto. Om detta var du följer du länken nedan för att välja ett nytt lösenord. Annars borde du dubbelkolla säkerheten på ditt mail-konto och radera detta mail.</p><a href=\"https://#{$domain_name}:9292/account/newpw?token=#{token}&email=#{user.get_email}\">https://#{$domain_name}:9292/account/newpw?token=#{token}&email=#{user.get_email}</a>"
     )
     # TODO: Change to real domain
   end
