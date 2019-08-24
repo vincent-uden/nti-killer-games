@@ -15,6 +15,8 @@ h1.title Skapa konto
       p.error Du måste ange en email adress
     - if flash[:errors].include? :email_exists
       p.error Email adressen är redan använd
+    - if flash[:errors].include? :invalid_email
+      p.error Du måste ange en korrekt email address
     input type="text" name="class" placeholder="Klass" class="signUpForm"
     - if flash[:errors].include? :invalid_class
       p.error Du måste ange en korrekt klass
@@ -24,6 +26,8 @@ h1.title Skapa konto
       p.error Du måste ange ett lösenord
     - if flash[:errors].include? :password_dont_match
       p.error Lösenorden måste matcha
+    - if flash[:errors].include? :password_too_short
+      p.error Ditt lösenord måste vara 7 tecken eller längre
     input type="text" name="codeWord" placeholder="Kod" class="signUpForm"
     - if flash[:errors].include? :invalid_code_word
       p.error Felaktig kod

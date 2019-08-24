@@ -174,6 +174,8 @@ class User < Table
     # Check if email is availible
     if user_info["email"] == ""
       errors << :empty_email
+    elsif EmailValidator.invalid? user_info["email"]
+      errors << :invalid_email
     end
     if !((get email: user_info["email"]).null?)
       errors << :email_exists
@@ -190,6 +192,9 @@ class User < Table
     end
     if user_info["password"] != user_info["passwordConfirm"]
       errors << :password_dont_match
+    end
+    if user_info["password"].length < 6
+      errors << :password_too_short
     end
 
     # Validate code word
