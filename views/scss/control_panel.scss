@@ -1,5 +1,4 @@
 @import './views/scss/general';
-
 body {
     margin: 0;
     padding: 0;
@@ -41,8 +40,8 @@ h2 {
 
 button {
     width: 30vw;
-    margin-left: 25vw;
-    margin-top: 2vh;
+    margin-left: 35vw;
+    margin-top: 5vh;
     padding-top: 1vh;
     padding-bottom: 1vh;
 }
@@ -50,4 +49,33 @@ button {
 button.disabled {
     opacity: 0.35;
     cursor: not-allowed;
+}
+
+button.stateButton {
+    margin-left: 25vw;
+}
+
+button.logoutButton {
+    margin-left: 25vw;
+}
+
+input.loginForm {
+    width: 40vw;
+    height: 8vh;
+    margin-left: 30vw;
+    margin-top: 3vh;
+
+    background-color: #00000000;
+    color: #fff;
+    font-size: 3vh;
+    line-height: 0.5vh !important;
+
+    border: none;
+    border-bottom: 2px solid #aaa;
+}
+
+input.loginForm:focus {
+    border: none;
+    border-bottom: 2px solid #8153A4;
+    transition: border-bottom 0.2s linear;
 }

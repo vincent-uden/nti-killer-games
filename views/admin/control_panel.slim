@@ -32,7 +32,7 @@ link rel="stylesheet" type="text/css" href="/css/control_panel.css"
 - else
   h1 Superuser login
   form action="/superuser/login" method="post" id="superuserForm"
-    input type="password" name="superuserCode"
+    input class="loginForm" type="password" name="superuserCode" placeholder="Password"
     - if flash[:errors].include? :wrong_code
       p Fel kod
     button type="submit" Logga in
