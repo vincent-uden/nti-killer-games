@@ -1,5 +1,4 @@
 @import './views/scss/general';
-
 body {
     margin: 0;
     padding: 0;
@@ -50,6 +49,14 @@ button {
 button.disabled {
     opacity: 0.35;
     cursor: not-allowed;
+}
+
+button.stateButton {
+    margin-left: 25vw;
+}
+
+button.logoutButton {
+    margin-left: 25vw;
 }
 
 input.loginForm {
