@@ -2,7 +2,8 @@ $domain_name = "192.168.2.222:9292"
 
 class App < Sinatra::Base
   # Password for admin page
-  # killerpass123 admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
+  # killerpass123 
+  admin_pass = "$2a$12$n6mUrm6FG1nT42/6CsYgpu7UXXGvOqyVrPmvfhoR2CJCoBO5yq452"
 
   superuser_pass = "$2a$12$DTlPftuCRgLIyRuqWiixvu4wk8C36YX21Kjyqjk0Ef8s0kkI8njAa"
 
@@ -76,8 +77,7 @@ class App < Sinatra::Base
     slim :'account/resetpw'
   end
 
-  get '/account/newpw' do
-    @token = params[:token]
+  get '/account/newpw' do @token = params[:token]
     @email = params[:email]
     @validated = PasswordReset.validate_token @token, @email
     # TODO: Create post handling for this
@@ -95,6 +95,15 @@ class App < Sinatra::Base
 
 
     slim :'admin/overview'
+  end
+
+  get '/admin/gen_codes' do
+    if session[:admin] || session[:superuser]
+      @is_admin = true
+    else
+      @is_admin = false
+    end
+    slim :'admin/gen_codes'
   end
 
   get '/admin/control_panel' do
@@ -145,6 +154,12 @@ class App < Sinatra::Base
       result = result.sort { |a, b| b["target_name"] <=> a["target_name"] }
     end
     result.to_json
+  end
+
+  get '/admin/genNewCode' do
+    if session[:admin] || session[:superuser]
+      SoldCode.gen_new_code
+    end
   end
 
   get '/game/overview' do
@@ -244,6 +259,8 @@ class App < Sinatra::Base
       -1.to_s
     end
   end
+
+  
 
   not_found do
     status 404
