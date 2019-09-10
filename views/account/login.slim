@@ -2,7 +2,8 @@ link rel="stylesheet" href="/css/login.css"
 link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"
 
 div.title
-  h1 LOGGA IN
+  h1#ntih1 NTI 
+  h1#killerh1 KILLERGAMES
 
 - if @current_user.null?
   form action="/account/login" method="post" id="loginForm"
@@ -21,3 +22,6 @@ div.title
 
 a href="/account/new" 
   button class="squish" Skapa konto
+
+script src="/js/textFit.js"
+script src="/js/login.js"
