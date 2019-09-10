@@ -1,0 +1,13 @@
+link rel="stylesheet" type="text/css" href="/css/control_panel.css"
+- if @is_admin
+  h1 style="margin-top: 10vh;" Generera koder för försäljning
+  button id="codeGenButton" Generera en ny kod!
+  h1 id="code-container"
+  script src="/js/codeGen.js"
+- else
+  h1 Admin login
+  form action="/admin/login" method="post" id="adminForm"
+    input class="loginForm" type="password" name="adminCode" placeholder="Password"
+    - if flash[:errors].include? :wrong_code
+      p Fel kod
+    button type="submit" Logga in
