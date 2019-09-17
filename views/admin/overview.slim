@@ -25,7 +25,10 @@ link rel="stylesheet" type="text/css" href="/css/admin.css"
         p.score     =user.get_score
         p.alive     =user.get_alive 
         - target = user.get_target
-        p.target    ="#{target.get_first_name} #{target.get_last_name}"
+        - if target.get_id == 0
+          p.target - 
+        - else
+          p.target    ="#{target.get_first_name} #{target.get_last_name}"
     h2 Mord-ordningen
     div#chainTable
       - for user in @target_chain
