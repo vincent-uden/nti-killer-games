@@ -70,7 +70,11 @@ function updateUserTable(userData) {
 
       tempP = document.createElement("p");
       tempP.classList.add("target");
-      tempNode = document.createTextNode(row.target_name);
+      if ( row.target_name === "Null User" ) {
+        tempNode = document.createTextNode("-");
+      } else {
+        tempNode = document.createTextNode(row.target_name);
+      }
       tempP.appendChild(tempNode);
       cNode.appendChild(tempP);
     }

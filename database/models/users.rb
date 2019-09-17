@@ -221,6 +221,9 @@ class User < Table
     start_user = users.first
     next_id = start_user.get_target_id
     next_user = (users.select { |u| u.get_id == next_id }).first
+    if next_user == nil
+      return []
+    end
     chain = []
     chain << next_user
     while next_user != start_user
