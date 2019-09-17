@@ -172,3 +172,37 @@ button.logoutButton {
 }
 
 
+div.logo {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    img {
+        width: 70vw;
+        height: auto;
+        margin-left: 12.5vw;
+        background-color: #fff;
+        border-radius: 2.5vw;
+        padding: 2.5vw;
+        margin-bottom: 5vh;
+    }
+    a {
+        text-decoration: none;
+    }
+    p {
+        font-size: 4vh;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    div.logo {
+        img {
+            width: 40vw;
+            margin-left: 28.6vw;
+            background-color: #fff;
+            border-radius: 1.4vw;
+            padding: 1.4vw;
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+}
