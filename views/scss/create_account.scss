@@ -53,6 +53,25 @@ input.signUpForm:focus {
     transition: border-bottom 0.2s linear;
 }
 
+input.gdprBox {
+    height: 2.5vh;
+    width: 2.5vh;
+    margin-right: 1em;
+}
+
+div.gdprContainer {
+    width: 70vw;
+    padding: 0;
+    margin-left: 15vw;
+    margin-top: 3vh;
+}
+
+label.gdprLabel {
+    font-family: $main-font;
+    font-size: 3vh;
+    color: #aaa;
+}
+
 textarea:focus, input:focus{
     outline: none;
 }
@@ -65,3 +84,6 @@ button {
     margin-bottom: 10vh;
 }
 
+a {
+    color: #aaa !important;
+}

@@ -31,6 +31,11 @@ h1.title Skapa konto
     input type="text" name="codeWord" placeholder="Kod" class="signUpForm"
     - if flash[:errors].include? :invalid_code_word
       p.error Felaktig kod
+    div.gdprContainer
+      input type="checkbox" id="gdpr" name="gdpr" value="gdpr-accept" class="gdprBox" 
+      label for="gdpr" class="gdprLabel" Jag godkänner <a href="https://www.gdprprivacynotice.com/live.php?token=71hq8aRIZNtAYQ7hjaGAvaCZXrT0w8pu"> NTI-Killergames's GDPR-villkor</a>
+    - if flash[:errors].include? :gdpr_unchecked
+      p.error Du måste godkänna GDPR-villkoren för att kunna skapa ett konto
     button class="squish" type="submit" Skapa konto
 - elsif GameState.running?
   div.panel
