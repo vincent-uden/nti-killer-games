@@ -218,6 +218,9 @@ class User < Table
 
   def self.get_target_chain
     users = select(where: "alive = true").map { |u| User.new u }
+    if users.empty?
+      return []
+    end
     start_user = users.first
     next_id = start_user.get_target_id
     next_user = (users.select { |u| u.get_id == next_id }).first
