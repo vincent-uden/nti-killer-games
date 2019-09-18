@@ -197,9 +197,10 @@ class User < Table
       errors << :password_too_short
     end
 
-    if !user_info["gdpr-accept"] 
+    if user_info["gdpr"] != "gdpr-accept"
       errors << :gdpr_unchecked
     end
+    ap user_info
 
     # Validate code word
     if !(CodeWord.valid_code? user_info["codeWord"])
