@@ -1,5 +1,7 @@
 link rel="stylesheet" href="/css/game_overview.css"
 
+/! ="#{@current_user.get_first_name} #{@current_user.get_last_name}"
+
 div#confirmDeathWrapper
   div#confirmDeathPopup
     h2 Är du säker? Detta kan inte ångras
@@ -13,16 +15,22 @@ div#container
 
   - if @current_user.get_alive
 
+
     h3#targetHeader DITT OFFER ÄR
-    div.banner id="target"
+    div.banner id="target" style="margin-bottom: 5vh;"
       h3 ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
       h3 ="#{@current_user.get_target.get_class}"
+
 
   - else
     h3#targetHeader DU ÄR DÖD
     div.banner id="target"
       h3 -
       h3 
+
+  h3 DU HAR
+  div.banner id="self-info" style="margin-top: 2vh; margin-bottom: 15vh;"
+    h3  ="#{@current_user.get_score} poäng"
     
 
   div.panel id="rules"
