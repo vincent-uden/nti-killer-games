@@ -73,7 +73,7 @@ class User < Table
 
   def die
     if get_alive
-      murderer = self.class.get target_id: get_id
+      murderer = User.new (Database.exec_params 'SELECT * FROM users WHERE target_id = $1 AND alive = TRUE', [get_id])[0]
 
       murderer.set_target_id get_target_id
       murderer.save

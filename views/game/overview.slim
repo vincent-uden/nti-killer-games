@@ -16,7 +16,7 @@ div#container
     h3#targetHeader DITT OFFER ÄR
     div.banner id="target"
       h3 ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
-      h3 3A
+      h3 ="#{@current_user.get_target.get_class}"
 
   - else
     h3#targetHeader DU ÄR DÖD
