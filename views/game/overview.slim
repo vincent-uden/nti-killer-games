@@ -14,12 +14,13 @@ div#container
   h1#killerh1 KILLERGAMES
 
   - if @current_user.get_alive
-
-
-    h3#targetHeader DITT OFFER ÄR
-    div.banner id="target" style="margin-bottom: 5vh;"
-      h3 ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
-      h3 ="#{@current_user.get_target.get_class}"
+    - if @current_user.get_target_id == @current_user.get_id
+      h3#targetHeader style="margin: 5vh;" GRATTIS! DU ÄR DEN ENDA PERSONEN KVAR!
+    - else
+      h3#targetHeader DITT OFFER ÄR
+      div.banner id="target" style="margin-bottom: 5vh;"
+        h3 ="#{@current_user.get_target.get_first_name} #{@current_user.get_target.get_last_name}"
+        h3 ="#{@current_user.get_target.get_class}"
 
 
   - else
@@ -39,7 +40,10 @@ div#container
 
   div.panel id="murdered"
     - if @current_user.get_alive
-      button onclick="confirmDeath()" class="squish" type="submit" Jag har blivit dödad
+      - if @current_user.get_target_id == @current_user.get_id
+        button class="squish disabled" type="submit" disabled="true" Jag har blivit dödad
+      - else
+        button onclick="confirmDeath()" class="squish" type="submit" Jag har blivit dödad
     - else
       button class="squish disabled" type="submit" disabled="true" Jag har blivit dödad
 

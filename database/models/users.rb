@@ -127,7 +127,7 @@ class User < Table
 
   def self.get(identifier)
     if identifier[:email]
-      result = select where: "email = $1", values: [identifier[:email]]
+      result = select where: "UPPER(email) = UPPER($1)", values: [identifier[:email]]
     elsif identifier[:id]
       result = select where: "id = $1", values: [identifier[:id]]
     elsif identifier[:code]
@@ -254,6 +254,9 @@ class User < Table
     while next_user != start_user
       next_id = next_user.get_target_id
       next_user = (users.select { |u| u.get_id == next_id }).first
+      if next_user == chain[-1]
+        break
+      end
       chain << next_user
     end
     chain

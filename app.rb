@@ -85,7 +85,9 @@ class App < Sinatra::Base
   end
 
   get '/admin/overview' do
+    p "hi"
     if session[:admin] || session[:superuser]
+      p "hi 2"
       @is_admin = true
       @users = User.select(order_by: 'class, first_name').map { |x| User.new x  }
       @target_chain = User.get_target_chain
